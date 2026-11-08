@@ -1,11 +1,5 @@
 # SmartStock – Quản lý kho
 
-Ứng dụng Android Java/XML, phát triển từ SmartExpenseManager. Tái sử dụng Room, MVVM, biểu đồ, trợ lý AI, chế độ tối và PIN/vân tay.
-
-## Cấu hình Gemini
-
-Khóa Gemini không được lưu trong mã nguồn. Nếu dùng tính năng chat AI, hãy đặt `GEMINI_API_KEY` trong `~/.gradle/gradle.properties` (Windows: `%USERPROFILE%\.gradle\gradle.properties`) hoặc truyền qua Gradle bằng `-PGEMINI_API_KEY=...`. Không commit khóa API vào repository.
-
 ## Dùng thử
 
 1. Mở **Sản phẩm & tồn kho** trên trang chủ. Thêm mã hàng duy nhất, tên, đơn vị, nhóm hàng, giá tham chiếu và mức tồn tối thiểu.
