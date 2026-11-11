@@ -25,4 +25,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "SmartExpenseManager"
 include(":app")
- 
+
+include(":inventory")

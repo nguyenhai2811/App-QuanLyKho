@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":inventory"))
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
@@ -45,12 +46,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     implementation("androidx.biometric:biometric:1.1.0")
     
-    // Room
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
-    // LiveData support
-    implementation("androidx.room:room-runtime:2.6.1")
-
     // Network
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
