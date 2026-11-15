@@ -66,7 +66,13 @@ public class DetailActivity extends AppCompatActivity {
         android.widget.EditText search = findViewById(R.id.stock_search_documents);
         com.group14.expensemanager.ui.StockUi.watch(search, () -> viewModel.setSearch(search.getText().toString()));
         viewModel.setPartner(getIntent().getIntExtra("PARTNER_ID", 0));
-        if (getIntent().getIntExtra("PARTNER_ID", 0) != 0) {
+        int productIdFilter = getIntent().getIntExtra("PRODUCT_ID", 0);
+        if (productIdFilter != 0) {
+            String prodName = getIntent().getStringExtra("PRODUCT_NAME");
+            search.setHint("Phiếu của " + (prodName != null ? prodName : "sản phẩm"));
+            ((TextView) findViewById(R.id.mtv_toolbar_title)).setText("Lịch sử: " + (prodName != null ? prodName : "Sản phẩm"));
+            viewModel.setSearch(getIntent().getStringExtra("PRODUCT_SKU") != null ? getIntent().getStringExtra("PRODUCT_SKU") : "");
+        } else if (getIntent().getIntExtra("PARTNER_ID", 0) != 0) {
             search.setHint("Phiếu của " + getIntent().getStringExtra("PARTNER_NAME"));
             ((TextView) findViewById(R.id.mtv_toolbar_title)).setText(getIntent().getStringExtra("PARTNER_NAME"));
         }
