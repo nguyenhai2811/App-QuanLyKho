@@ -1,6 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
 }
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { load(it) }
+    }
+}
+val openRouterApiKey = localProperties.getProperty("OPENROUTER_API_KEY", "")
 
 android {
     namespace = "com.group14.expensemanager"
@@ -18,7 +28,7 @@ android {
         versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "GEMINI_API_KEY", "\"${providers.gradleProperty("GEMINI_API_KEY").orElse("")}\"")
+        buildConfigField("String", "OPENROUTER_API_KEY", "\"${openRouterApiKey.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
     }
 
     buildTypes {

@@ -2,6 +2,10 @@
 
 Ứng dụng Android Java/XML, phát triển từ SmartExpenseManager. Tái sử dụng Room, MVVM, biểu đồ, trợ lý AI, chế độ tối và PIN/vân tay.
 
+## Cấu hình AI
+
+Để dùng chatbot AI, thêm `OPENROUTER_API_KEY=your-key` vào file `local.properties` ở thư mục gốc (file này bị Git bỏ qua). Không commit API key vào repository.
+
 ## Dùng thử
 
 1. Mở **Sản phẩm & tồn kho** trên trang chủ. Thêm mã hàng duy nhất, tên, đơn vị, nhóm hàng, giá tham chiếu và mức tồn tối thiểu.
@@ -19,7 +23,7 @@
 - Chênh lệch giá trị nhập–xuất là chênh lệch thành tiền của phiếu, không phải lợi nhuận hay giá trị tồn.
 - Nhập–xuất bằng cách chọn sản phẩm và nhập số lượng, đơn giá. Các tính năng máy ảnh, thư viện ảnh và quét mã đã được bỏ do phụ thuộc bộ nhận dạng từ Google Play Services không hoạt động trên môi trường thử nghiệm.
 - Nhận xét báo cáo chạy trên máy. Trợ lý chat dùng kết nối AI đã có và gửi ngữ cảnh mã/tên/tồn/mức tối thiểu khi người dùng đặt câu hỏi.
-- Chat có thể tạo phiếu ngay với câu rõ ràng như `Tôi đã nhập 20 chai nước suối`, `xuất 5 NS001` hoặc `nhập 20 NS001 đơn giá 5000`. Các lệnh này xử lý trong app, không cần gọi Gemini. Tên phải khớp tên đầy đủ hoặc mã hàng trong danh mục; chưa hỗ trợ mọi cách diễn đạt.
+- Chat có thể tạo phiếu ngay với câu rõ ràng như `Tôi đã nhập 20 chai nước suối`, `xuất 5 NS001` hoặc `nhập 20 NS001 đơn giá 5000`. Các lệnh này xử lý trong app, không cần gọi dịch vụ AI bên ngoài. Tên phải khớp tên đầy đủ hoặc mã hàng trong danh mục; chưa hỗ trợ mọi cách diễn đạt.
 - Thiếu tên/số lượng thì chat hỏi lại; trả lời để hoàn tất, hoặc gõ `Hủy`. Mỗi yêu cầu một sản phẩm, ngày phiếu là hôm nay. Nhập hàng không ghi giá thì dùng giá tham chiếu hiện tại. Xuất hàng không ghi giá thì chat hỏi đơn giá; trả lời `5000`, `5.000đ` hoặc `giá 5000` rồi mới tạo phiếu/trừ kho. Ghi đơn giá ngay trong lệnh xuất thì không cần hỏi lại. Câu hỏi, phủ định, giả định, đơn vị không khớp và xuất quá tồn không tự thay đổi kho.
 - Với mã hàng chỉ gồm số, ghi rõ `nhập 5 mã 123` để tránh nhầm mã với số lượng. Chat không tự quy đổi thùng/chai hay kg/gram.
 - Chat bắt buộc chọn nhà cung cấp khi nhập và khách hàng khi xuất. Thiếu đối tác thì chat hỏi tên đầy đủ, số điện thoại hoặc `mã đối tác ID`; đối tác phải có trong danh bạ và đúng loại. Tên trùng sẽ được hỏi lại, không tự chọn. Có thể ghi ngay `nhập 20 NS001 nhà cung cấp TÊN` hoặc `xuất 5 NS001 khách hàng TÊN giá 5000`. Tồn kho chỉ đổi sau khi có đủ sản phẩm, số lượng, giá xuất và đối tác. Thiếu giá xuất thì hỏi giá trước, rồi hỏi khách hàng nếu còn thiếu.

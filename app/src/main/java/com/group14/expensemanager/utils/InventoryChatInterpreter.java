@@ -13,6 +13,7 @@ public final class InventoryChatInterpreter {
     private static final Pattern PRICE = Pattern.compile("\\b(?:don gia|gia)\\s*(?:la|:|=)?\\s*([-+]?\\d+(?:[.,]\\d+)*)(?:\\s*(k|nghin|ngan|trieu))?(?:\\s*(?:vnd|dong|d))?(?![\\p{L}\\p{N}])");
     private static final Pattern QUESTION = Pattern.compile("\\b(khong|chua|neu|gia su|du kien|se|co the|huong dan|lam sao|bao nhieu|co nen|vi du|dung|khoan)\\b|\\?");
     private static final Pattern OTHER_DATE = Pattern.compile("\\b(hom qua|hom kia|ngay mai|ngay|thang|nam)\\b|\\d+[/]\\d+");
+    private static final java.util.Set<String> GENERIC_UNITS = new java.util.HashSet<>(java.util.Arrays.asList("san pham", "sp", "cai", "chiec"));
     private static final Pattern UNIT = Pattern.compile("^\\s*(chai|cai|hop|thung|kg|gram|g|lit|l|goi|tui|bo|cuon|chiec|san pham|sp)\\b");
 
     public static class Draft {
@@ -167,7 +168,7 @@ public final class InventoryChatInterpreter {
         Product product = null;
         for (Product p : products) if (p.id == draft.productId) product = p;
         if (product == null) return reject("Sản phẩm không còn tồn tại. Hãy gửi lại mã hàng.");
-        if (draft.suppliedUnit != null && !draft.suppliedUnit.equals("san pham") && !draft.suppliedUnit.equals("sp")
+        if (draft.suppliedUnit != null && !GENERIC_UNITS.contains(draft.suppliedUnit)
                 && !draft.suppliedUnit.equals(normalize(product.unit)))
             return reject("Đơn vị của " + product.name + " là " + product.unit + ". Hãy gửi lại số lượng theo đơn vị này.");
         if (draft.quantity == null)
